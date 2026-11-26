@@ -1,13 +1,13 @@
 //Dia 1 - Semana1//
 
-// Valor venta//
 
+//Version ciclos//
+// Valor venta//
 function valorVenta(venta) {
     return venta.cantidad * venta.precio;
 }
 
 //Total vendido//
-
 function totalVendido(ventas) {
     let total = 0;
 
@@ -19,7 +19,6 @@ function totalVendido(ventas) {
 }
 
 //Unidades vendidas//
-
 function unidadesVendidas(ventas) {
     let total = 0;
 
@@ -31,7 +30,6 @@ function unidadesVendidas(ventas) {
 }
 
 //Venta mayor//
-
 function ventaMayor(ventas) {
     let mayor = null;
     
@@ -46,7 +44,6 @@ function ventaMayor(ventas) {
 }
 
 //Promedio ventas//
-
 function ticketPromedio(ventas) {
     let total = 0;
     let cantidadVentas = 0;
@@ -66,7 +63,6 @@ function ticketPromedio(ventas) {
 }
 
 //Ventas por ciudad//
-
 function ventasPorCiudad(ventas, ciudad) {
     let total = 0;
 
@@ -81,6 +77,91 @@ function ventasPorCiudad(ventas, ciudad) {
 
 // Dia 2 - Semana1//
 
+// Version metodos//
+// --- versiones con métodos ---
+function totalVendidoM(ventas) {
+    return ventas.reduce((acumulador, venta) => {
+        return acumulador + valorVenta(venta);
+    }, 0);
+}
+
+function unidadesVendidasM(ventas) {
+    return ventas.reduce((acumulador, venta) => {
+        return acumulador + venta.cantidad;
+    }, 0);
+}
+
+function ventasPorCiudadM(ventas, ciudad) {
+
+    const ventasFiltradas = ventas.filter(venta =>
+        venta.ciudad.toLowerCase().trim() === ciudad.toLowerCase().trim()
+    );
+    return ventasFiltradas.reduce((acumulador, venta) => {
+        return acumulador + valorVenta(venta);
+    }, 0);
+
+}
+
+// --- agrupaciones ---
+function totalPorCiudad(ventas) {
+
+    return ventas.reduce((acumulador, venta) => {
+
+       const ciudad = venta.ciudad.trim().toLowerCase();
+
+        if (!acumulador[ciudad]) {
+            acumulador[ciudad] = 0;
+        }
+
+        acumulador[ciudad] += valorVenta(venta);
+
+        return acumulador;
+
+    }, {});
+
+}
+
+function unidadesPorProducto(ventas) {
+
+    return ventas.reduce((acumulador, venta) => {
+
+        const producto = venta.producto;
+
+        if (!acumulador[producto]) {
+            acumulador[producto] = 0;
+        }
+        acumulador[producto] += venta.cantidad;
+
+        return acumulador;
+
+    }, {});
+
+}
+
+function topProductosPorValor(ventas, k) {
+
+    const totalProductos = ventas.reduce((acumulador, venta) => {
+
+        const producto = venta.producto;
+
+        if (!acumulador[producto]) {
+            acumulador[producto] = 0;
+        }
+
+        acumulador[producto] += valorVenta(venta);
+
+        return acumulador;
+
+    }, {});
+
+    const productosArray = Object.entries(totalProductos);
+
+    productosArray.sort((a, b) => b[1] - a[1]);
+
+    return productosArray.slice(0, k);
+
+}
+
 
 
 module.exports = {
@@ -89,5 +170,11 @@ module.exports = {
     unidadesVendidas,
     ventaMayor,
     ticketPromedio,
-    ventasPorCiudad
+    ventasPorCiudad,
+    totalVendidoM,
+    unidadesVendidasM,
+    ventasPorCiudadM,
+    totalPorCiudad,
+    unidadesPorProducto,
+    topProductosPorValor,
 };

@@ -13,14 +13,4 @@ const ventas = [
     { id: 12, fecha: "2026-09-06", cliente: "C08", producto: "Origen Nariño 250 g", ciudad: "Bogotá ", cantidad: 3, precio: 26000 },
 ];
 
-const normalizar = (texto) => texto.trim().toLowerCase()
-
-function ventasPorCiudad(ventas, ciudad) {
-    let total = 0;
-    for (const v of ventas) {
-        if (normalizar(v.ciudad) === normalizar(ciudad)) total += valorVenta(v);
-    }
-    return total;
-}
-
 module.exports = ventas;
