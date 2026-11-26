@@ -102,7 +102,7 @@ function ventasPorCiudadM(ventas, ciudad) {
 
 }
 
-// --- agrupaciones ---
+// --- agrupaciones ---//
 function totalPorCiudad(ventas) {
 
     return ventas.reduce((acumulador, venta) => {
@@ -162,7 +162,9 @@ function topProductosPorValor(ventas, k) {
 
 }
 
-
+function ventasDelDia(ventas, fecha) {
+    return ventas.filter(venta => venta.fecha === fecha);
+}   
 
 module.exports = {
     valorVenta,
@@ -177,4 +179,6 @@ module.exports = {
     totalPorCiudad,
     unidadesPorProducto,
     topProductosPorValor,
+    ventasDelDia,
+    
 };
