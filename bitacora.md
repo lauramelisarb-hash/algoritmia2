@@ -76,3 +76,82 @@ Tambien aprendí a utilizar métodos de arreglos como `reduce()`, `filter()`, `s
 También aprendí a utilizar `Object.entries()` para convertir un objeto en un arreglo de pares y a ordenar los resultados sin modificar el arreglo original mediante el operador spread (`...`).
 
 Finalmente, reforcé la importancia de probar las funciones y comparar los resultados de las versiones desarrolladas con ciclos y con métodos de arreglos para verificar que ambas produzcan los mismos resultados.
+
+## Validación de errores reportados por gerencia – v0.1
+
+### Error 1: Bogotá aparecía dos veces
+
+- La ciudad Bogotá aparecía duplicada en el reporte.
+- Registros con variaciones en la escritura del nombre de la ciudad, como `"Bogotá"`, `"bogotá "` y `" Bogotá"`.
+- **El porque:** Las diferencias entre mayúsculas, minúsculas y espacios estaban provocando que se identificaran como ciudades diferentes.
+- Se realizaron consultas utilizando `"BOGOTÁ"` y `" bogotá "`.
+- Los textos podían tener diferencias de formato.
+- **Corrección:** Se utilizó `toLowerCase()` y `trim()` para normalizar los nombres antes de compararlos. Las pruebas confirmaron que ambas consultas devuelven el mismo total.
+
+### Error 2: El ticket promedio devolvía NaN cuando no había ventas
+
+- El cálculo del ticket promedio devolvía `NaN` al consultar un día sin ventas.
+- Un arreglo vacío de ventas `[]`.
+- **El porque:** Se estaba intentando calcular el promedio sin tener ventas para dividir.
+- Se ejecutó `ticketPromedio([])`.
+- No existían ventas válidas para calcular el promedio.
+- **Corrección:** Se agregó una condición que verifica si `cantidadVentas === 0`. En ese caso, la función devuelve `0` y evita realizar la división. La prueba confirmó el resultado esperado.
+
+**Dia 2 Semana 1**
+
+## Análisis de complejidad y medición de operaciones
+
+### Predicciones teóricas
+
+Antes de interpretar los resultados, se espera el siguiente comportamiento:
+
+- **totalVendido:** O(n). Si el número de ventas aumenta 10 veces, las operaciones aumentarán aproximadamente 10 veces.
+- **ventaMayor:** O(n). Al recorrer todas las ventas, las operaciones aumentarán proporcionalmente.
+- **totalPorCiudad:** O(n). Recorre el arreglo una sola vez para agrupar las ventas por ciudad.
+- **primeraVenta:** O(1). Siempre accede a la primera posición, independientemente del tamaño del arreglo.
+
+### Resultados obtenidos
+
+| Número de ventas | totalVendido | ventaMayor | totalPorCiudad | primeraVenta |
+|---:|---:|---:|---:|---:|
+| 100 | 100 | 200 | 200 | 1 |
+| 1.000 | 1.000 | 2.000 | 2.000 | 1 |
+| 10.000 | 10.000 | 20.000 | 20.000 | 1 |
+| 100.000 | 100.000 | 200.000 | 200.000 | 1 |
+
+### Comparación y conclusiones
+
+Los resultados coinciden con el comportamiento esperado:
+
+- `totalVendido` presenta crecimiento lineal: sus operaciones aumentan en la misma proporción que las ventas.
+- `ventaMayor` presenta crecimiento lineal: registra una visita y una evaluación de condición por cada venta.
+- `totalPorCiudad` presenta crecimiento lineal: registra una visita y una evaluación de condición por cada venta.
+- `primeraVenta` presenta crecimiento constante: siempre registra una operación.
+
+Se concluye que las funciones `totalVendido`, `ventaMayor` y `totalPorCiudad` tienen complejidad O(n), mientras que `primeraVenta` tiene complejidad O(1).
+
+No se identificó una función O(n²) entre las funciones medidas.
+
+## Traza de clientes recurrentes
+
+Se utilizó un arreglo de 5 ventas con los siguientes clientes:
+
+C01, C02, C01, C03, C02.
+
+La función selecciona cada venta mediante un ciclo externo y la compara con todas las ventas mediante un ciclo interno.
+
+| Venta exterior | Comparaciones realizadas |
+|---|---:|
+| 1 | 5 |
+| 2 | 5 |
+| 3 | 5 |
+| 4 | 5 |
+| 5 | 5 |
+| **Total** | **25** |
+
+Con 5 ventas se realizan 25 comparaciones.
+
+Al generalizar el comportamiento, con n ventas se realizan n × n comparaciones, es decir, n².
+
+Por esta razón, la función presenta un crecimiento cuadrático O(n²).
+

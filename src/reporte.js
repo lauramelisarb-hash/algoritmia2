@@ -37,5 +37,11 @@ const fecha = "2026-09-01";
 const ventasDia = a.ventasDelDia(ventas, fecha);
 
 console.log(`Fecha: ${fecha}`);
-console.log(`Cantidad de ventas: ${ventasDia.length}`);
-console.log(`Total vendido: $${a.totalVendidoM(ventasDia).toLocaleString("es-CO")}`);
+
+if (ventasDia.length === 0) {
+    console.log("No hay ventas para esta fecha");
+} else {
+    console.log(`Cantidad de ventas: ${ventasDia.length}`);
+    console.log(`Total vendido: $${a.totalVendidoM(ventasDia).toLocaleString("es-CO")}`);
+}
+

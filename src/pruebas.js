@@ -1,3 +1,6 @@
+
+// PRUEBAS DE ANALITICA//
+
 const ventas = require("./datos");
 
 const {
@@ -10,26 +13,56 @@ const {
     totalPorCiudad,
     unidadesPorProducto,
     topProductosPorValor,
+    ventasDelDia,
+    clientesRecurrentes
 } = require("./analitica");
 
+const { generarVentas } = require("./generador");
 
-console.log("Total vendido:");
+
+console.log("\nTOTAL VENDIDO");
 console.log(totalVendido(ventas));
 console.log(totalVendidoM(ventas));
 
-console.log("Unidades vendidas:");
+
+console.log("\nUNIDADES VENDIDAS");
 console.log(unidadesVendidas(ventas));
 console.log(unidadesVendidasM(ventas));
 
-console.log("Ventas por Medellín:");
+
+console.log("\nVENTAS POR MEDELLÍN");
 console.log(ventasPorCiudad(ventas, "Medellín"));
 console.log(ventasPorCiudadM(ventas, "Medellín"));
 
-console.log("Total por ciudad:");
+
+console.log("\nTOTAL POR CIUDAD");
 console.log(totalPorCiudad(ventas));
 
-console.log("Unidades por producto:");
+
+console.log("\nUNIDADES POR PRODUCTO");
 console.log(unidadesPorProducto(ventas));
 
-console.log("Top 3 productos por valor:");
+
+console.log("\nTOP 3 PRODUCTOS POR VALOR");
 console.log(topProductosPorValor(ventas, 3));
+
+
+console.log("\nVENTAS DEL DÍA");
+console.log(ventasDelDia(ventas, "2026-09-06"));
+
+
+console.log("\nCLIENTES RECURRENTES");
+console.log(clientesRecurrentes(ventas));
+
+
+// ==========================================
+// PRUEBA DEL GENERADOR
+// ==========================================
+
+console.log("\nPRUEBA DEL GENERADOR");
+
+const ventasGeneradas = generarVentas(5);
+
+console.log(ventasGeneradas);
+console.log("Cantidad generada:", ventasGeneradas.length);
+

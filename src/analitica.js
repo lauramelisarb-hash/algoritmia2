@@ -75,7 +75,7 @@ function ventasPorCiudad(ventas, ciudad) {
     return total;
 }
 
-// Dia 2 - Semana1//
+// - Semana1//
 
 // Version metodos//
 // --- versiones con métodos ---
@@ -166,6 +166,73 @@ function ventasDelDia(ventas, fecha) {
     return ventas.filter(venta => venta.fecha === fecha);
 }   
 
+//Dia 2 semana 1//
+
+//Contadores//
+function totalVendidoMedido(ventas, contador) {
+    let total = 0;
+
+    for (const venta of ventas) {
+        contador.operaciones++;
+        total = total + valorVenta(venta);
+    }
+
+    return total;
+}
+
+function ventaMayorMedida(ventas, contador) {
+    let mayor = null;
+
+    for (const venta of ventas) {
+        contador.operaciones++; 
+        contador.operaciones++;
+
+        if (mayor === null || valorVenta(venta) > valorVenta(mayor)) {
+            mayor = venta;
+        }
+    }
+
+    return mayor;
+}
+
+function totalPorCiudadMedido(ventas, contador) {
+    return ventas.reduce((acumulador, venta) => {
+        contador.operaciones++; 
+
+        const ciudad = venta.ciudad.trim().toLowerCase();
+
+        contador.operaciones++;
+        if (!acumulador[ciudad]) {
+            acumulador[ciudad] = 0;
+        }
+
+        acumulador[ciudad] += valorVenta(venta);
+
+        return acumulador;
+    }, {});
+}
+
+function clientesRecurrentes(ventas) {
+    const recurrentes = [];
+
+    for (const venta of ventas) {
+        let cantidad = 0;
+
+        for (const otraVenta of ventas) {
+            if (venta.cliente === otraVenta.cliente) {
+                cantidad++;
+            }
+        }
+
+        if (cantidad > 1 && !recurrentes.includes(venta.cliente)) {
+            recurrentes.push(venta.cliente);
+        }
+    }
+
+    return recurrentes;
+}
+
+
 module.exports = {
     valorVenta,
     totalVendido,
@@ -180,5 +247,9 @@ module.exports = {
     unidadesPorProducto,
     topProductosPorValor,
     ventasDelDia,
+    totalVendidoMedido,
+    ventaMayorMedida,
+    totalPorCiudadMedido,
+    clientesRecurrentes,
     
 };
