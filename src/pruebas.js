@@ -14,7 +14,9 @@ const {
     unidadesPorProducto,
     topProductosPorValor,
     ventasDelDia,
-    clientesRecurrentes
+    clientesRecurrentes,
+    totalCiudadCadena,
+    totalCiudadUnaPasada,
 } = require("./analitica");
 
 const { generarVentas } = require("./generador");
@@ -66,3 +68,13 @@ const ventasGeneradas = generarVentas(5);
 console.log(ventasGeneradas);
 console.log("Cantidad generada:", ventasGeneradas.length);
 
+const ventasPrueba = generarVentas(10000);
+
+const resultadoCadena = totalCiudadCadena(ventasPrueba, "Medellín");
+
+const resultadoUnaPasada = totalCiudadUnaPasada(ventasPrueba, "Medellín");
+
+console.log("Versión encadenada:", resultadoCadena);
+console.log("Versión una pasada:", resultadoUnaPasada);
+
+console.log("¿Los resultados son iguales?", resultadoCadena === resultadoUnaPasada);

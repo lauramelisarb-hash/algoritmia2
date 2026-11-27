@@ -155,3 +155,84 @@ Al generalizar el comportamiento, con n ventas se realizan n × n comparaciones,
 
 Por esta razón, la función presenta un crecimiento cuadrático O(n²).
 
+# Minireto 7
+
+Crear dos funciones para calcular el total vendido en una ciudad:
+
+- `totalCiudadCadena()`: utiliza `map`, `filter`, `map` y `reduce`.
+- `totalCiudadUnaPasada()`: utiliza un ciclo `for...of` sin crear arreglos intermedios.
+
+# Desarrollo
+
+**Versión encadenada:**
+- Normaliza las ciudades con `map`.
+- Filtra las ventas de la ciudad solicitada con `filter`.
+- Calcula el valor de cada venta con otro `map`.
+- Suma los resultados con `reduce`.
+
+**Versión de una pasada:**
+- Recorre las ventas con `for...of`.
+- Normaliza y compara las ciudades.
+- Acumula el valor de las ventas que coinciden.
+
+# Pruebas
+
+Se generaron 10.000 ventas y se compararon ambas funciones.
+
+| Función | Resultado |
+|---|---:|
+| totalCiudadCadena | $481.571.000 |
+| totalCiudadUnaPasada | $481.571.000 |
+
+Ambas devolvieron el mismo resultado.
+
+# Recorridos y arreglos
+
+| Versión | Recorridos | Arreglos nuevos |
+|---|---:|---:|
+| Encadenada | 4 | 3 |
+| Una pasada | 1 | 0 |
+
+# Complejidad temporal
+
+Ambas funciones tienen complejidad O(n).
+
+La versión encadenada realiza cuatro recorridos: O(4n). Al eliminar las constantes, se simplifica a O(n).
+
+La versión de una pasada también es O(n), porque recorre las ventas una sola vez.
+
+# Complejidad espacial del motor
+
+| Función | Complejidad |
+|---|---|
+| valorVenta | O(1) |
+| totalVendido | O(1) |
+| unidadesVendidas | O(1) |
+| ventaMayor | O(1) |
+| ticketPromedio | O(1) |
+| ventasPorCiudad | O(1) |
+| totalVendidoM | O(1) |
+| unidadesVendidasM | O(1) |
+| ventasPorCiudadM | O(n) |
+| totalPorCiudad | O(n) |
+| unidadesPorProducto | O(n) |
+| topProductosPorValor | O(n) |
+| ventasDelDia | O(n) |
+| clientesRecurrentes | O(n) |
+| totalVendidoMedido | O(1) |
+| ventaMayorMedida | O(1) |
+| totalPorCiudadMedido | O(n) |
+| totalCiudadCadena | O(n) |
+| totalCiudadUnaPasada | O(1) |
+| generarVentas | O(n) |
+
+# Decisión final
+
+Se decidió conservar `totalCiudadUnaPasada()` porque realiza un solo recorrido, no crea arreglos intermedios y utiliza memoria adicional constante O(1).
+
+Aunque la versión encadenada es legible y también tiene complejidad temporal O(n), la versión de una pasada aprovecha mejor los recursos.
+
+# Conclusión
+
+El reto permitió comprender que dos algoritmos pueden producir el mismo resultado y tener la misma complejidad temporal, pero utilizar diferentes cantidades de memoria. Por eso, al desarrollar soluciones debemos considerar tanto la legibilidad como la eficiencia.
+

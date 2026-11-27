@@ -232,6 +232,45 @@ function clientesRecurrentes(ventas) {
     return recurrentes;
 }
 
+function totalCiudadCadena(ventas, ciudad) {
+
+    const ventasNormalizadas = ventas.map(venta => {
+    return {
+        ...venta,
+        ciudad: venta.ciudad.trim().toLowerCase()
+    };
+    });
+    
+    const ventasFiltradas = ventasNormalizadas.filter(venta => {
+    return venta.ciudad === ciudad.trim().toLowerCase();
+    });
+
+    const valoresVentas = ventasFiltradas.map(venta => {
+      return venta.cantidad * venta.precio
+    });
+
+    return valoresVentas.reduce((acumulador, valor) => {
+    return acumulador + valor;
+    }, 0);
+}
+
+function totalCiudadUnaPasada(ventas, ciudad) {
+
+    let total = 0;
+
+    for (const venta of ventas) {
+
+        const ciudadVenta = venta.ciudad.trim().toLowerCase();
+
+        if (ciudadVenta === ciudad.trim().toLowerCase()) {
+
+            total += valorVenta(venta);
+
+        }
+    }
+
+    return total;
+}
 
 module.exports = {
     valorVenta,
@@ -251,5 +290,6 @@ module.exports = {
     ventaMayorMedida,
     totalPorCiudadMedido,
     clientesRecurrentes,
-    
+    totalCiudadCadena,
+    totalCiudadUnaPasada,
 };
